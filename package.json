@@ -1,0 +1,23 @@
+{
+  "name": "hyperfeed-ws",
+  "version": "1.0.0",
+  "description": "send hyperfeed updates through websocket",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "websocket",
+    "hyperfeed"
+  ],
+  "author": "Poga Po<poga.bahamut@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "hyperfeed": "^2.4.0",
+    "openport": "0.0.4",
+    "tape": "^4.6.3"
+  }
+}
