@@ -19,5 +19,6 @@
     "hyperfeed": "^2.4.0",
     "openport": "0.0.4",
     "tape": "^4.6.3"
-  }
+  },
+  "repository": "poga/hyperfeed-ws"
 }
