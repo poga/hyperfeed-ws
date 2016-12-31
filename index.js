@@ -9,7 +9,9 @@ function Server (feed, opts) {
       updates.destroy()
     })
 
+    var failed = false
     updates.on('data', entry => {
+      if (failed) return
       if (!opts.filter || (opts.filter && opts.filter(entry))) {
         feed.load(entry).then(item => {
           entry.item = item
@@ -17,6 +19,7 @@ function Server (feed, opts) {
             ws.send(JSON.stringify(entry))
           } catch (e) {
             console.log('Failed to send, discarding connection', e)
+            failed = true
             updates.destroy()
           }
         })
