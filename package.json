@@ -1,6 +1,6 @@
 {
   "name": "hyperfeed-ws",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "send hyperfeed updates through websocket",
   "main": "index.js",
   "scripts": {
