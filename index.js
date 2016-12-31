@@ -10,6 +10,8 @@ function Server (feed, opts) {
         feed.load(entry).then(item => {
           entry.item = item
           ws.send(JSON.stringify(entry))
+        }).catch(function (err) {
+          console.log('ws error', err)
         })
       }
     })
