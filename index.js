@@ -5,10 +5,11 @@ function Server (feed, opts) {
 
   this._server.on('connection', function (ws) {
     var updates = feed.list({live: true})
-    updates.on('data', x => {
-      if (!opts.filter || (opts.filter && opts.filter(x))) {
-        feed.load(x).then(body => {
-          ws.send(JSON.stringify(body))
+    updates.on('data', entry => {
+      if (!opts.filter || (opts.filter && opts.filter(entry))) {
+        feed.load(entry).then(item => {
+          entry.item = item
+          ws.send(JSON.stringify(entry))
         })
       }
     })

@@ -12,8 +12,8 @@ tape('send updates', function (t) {
     addItem(feed, 'Feed Title', Date.now()).then(() => {
       var client = new WebSocket(`ws://localhost:${port}`)
       client.on('message', data => {
-        var item = JSON.parse(data)
-        t.same(item.title, 'Feed Title')
+        var entry = JSON.parse(data)
+        t.same(entry.item.title, 'Feed Title')
         wss.close()
         t.end()
       })
@@ -28,8 +28,8 @@ tape('updates after connect', function (t) {
 
     var client = new WebSocket(`ws://localhost:${port}`)
     client.on('message', data => {
-      var item = JSON.parse(data)
-      t.same(item.title, 'Feed Title')
+      var entry = JSON.parse(data)
+      t.same(entry.item.title, 'Feed Title')
       wss.close()
       t.end()
     })
@@ -45,8 +45,8 @@ tape('filter', function (t) {
 
     var client = new WebSocket(`ws://localhost:${port}`)
     client.on('message', data => {
-      var item = JSON.parse(data)
-      t.same(item.title, 'Feed Title2')
+      var entry = JSON.parse(data)
+      t.same(entry.item.title, 'Feed Title2')
       wss.close()
       t.end()
     })
