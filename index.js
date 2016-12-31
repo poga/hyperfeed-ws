@@ -6,7 +6,7 @@ function Server (feed, opts) {
   this._server.on('connection', function (ws) {
     var updates = feed.list({live: true})
     ws.on('close', function () {
-      updates.destory()
+      updates.destroy()
     })
 
     updates.on('data', entry => {

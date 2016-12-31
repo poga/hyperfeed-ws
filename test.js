@@ -21,6 +21,34 @@ tape('send updates', function (t) {
   })
 })
 
+tape('reconnect', function (t) {
+  var feed = hyperfeed().createFeed()
+  openport.find((_, port) => {
+    var wss = new Wss(feed, {port})
+
+    addItem(feed, 'Feed Title', Date.now()).then(() => {
+      var client = new WebSocket(`ws://localhost:${port}`)
+      client.on('message', data => {
+        var entry = JSON.parse(data)
+        t.same(entry.item.title, 'Feed Title')
+        client.close()
+        re()
+      })
+    })
+
+    function re () {
+      var client = new WebSocket(`ws://localhost:${port}`)
+      client.on('message', data => {
+        var entry = JSON.parse(data)
+        t.same(entry.item.title, 'Feed Title')
+        wss.close()
+        client.close()
+        t.end()
+      })
+    }
+  })
+})
+
 tape('updates after connect', function (t) {
   var feed = hyperfeed().createFeed()
   openport.find((_, port) => {
