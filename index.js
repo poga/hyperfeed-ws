@@ -13,7 +13,12 @@ function Server (feed, opts) {
       if (!opts.filter || (opts.filter && opts.filter(entry))) {
         feed.load(entry).then(item => {
           entry.item = item
-          ws.send(JSON.stringify(entry))
+          try {
+            ws.send(JSON.stringify(entry))
+          } catch (e) {
+            console.log('Failed to send, discarding connection', e)
+            updates.destroy()
+          }
         })
       }
     })
